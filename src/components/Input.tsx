@@ -18,7 +18,7 @@ interface Props {
   isNumeric?: boolean;
 }
 
-export const Input = ({
+const Input = ({
   label,
   hasCurrency = false,
   multiline = false,
@@ -80,3 +80,5 @@ const styles = StyleSheet.create({
     paddingBottom: 87,
   },
 });
+
+export default Input;
