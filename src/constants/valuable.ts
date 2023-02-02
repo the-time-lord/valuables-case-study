@@ -1,0 +1,1 @@
+export const MAX_VALUABLE_TOTAL = 40000;

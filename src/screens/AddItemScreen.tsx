@@ -13,6 +13,7 @@ import IconButton from '../components/Buttons/IconButton';
 import { Valuable } from '../types/Valuable';
 import { useValuableContext } from '../context/ValuableContext';
 import Input from '../components/Input';
+import { MAX_VALUABLE_TOTAL } from '../constants/valuable';
 
 export default function AddItemScreen({
   navigation,
@@ -30,13 +31,18 @@ export default function AddItemScreen({
     }
   }, [imageURI]);
 
-  const isDataValid = !!name && !!value;
-
   const setValuablePrice = (value: string) => {
     if (Number.isNaN(Number(value))) return;
 
     setValue(value);
   };
+
+  const valuablePriceTotal = valuables.reduce(
+    (acc, { purchasePrice }) => acc + purchasePrice,
+    0
+  );
+  const isAboveMaxValuableTotal =
+    valuablePriceTotal + Number(value) > MAX_VALUABLE_TOTAL;
 
   const onSubmit = () => {
     const valuable: Valuable = {
@@ -49,6 +55,8 @@ export default function AddItemScreen({
     setValuables([...valuables, valuable]);
     navigation.goBack();
   };
+
+  const isDataValid = !!name && !!value && !isAboveMaxValuableTotal;
 
   return (
     <View style={styles.container}>
