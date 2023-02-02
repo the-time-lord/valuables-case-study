@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {
   Text,
   TextInput,
@@ -16,6 +15,7 @@ interface Props {
   label?: string;
   hasCurrency?: boolean;
   isNumeric?: boolean;
+  value: string;
 }
 
 const Input = ({
@@ -26,9 +26,9 @@ const Input = ({
   numberOfLines,
   placeholder,
   isNumeric,
+  value,
+  onChangeText
 }: Props & TextInputProps) => {
-  const [value, setValue] = useState('');
-
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
       <View>
@@ -36,7 +36,7 @@ const Input = ({
         <View style={[styles.inputContainer, multiline && styles.multiline]}>
           <TextInput
             value={value}
-            onChangeText={setValue}
+            onChangeText={onChangeText}
             multiline={multiline}
             placeholder={placeholder}
             placeholderTextColor={colors.mainGrey}

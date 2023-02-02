@@ -10,13 +10,19 @@ import { Ionicons } from '@expo/vector-icons';
 
 import { fonts } from '../theme/fonts';
 import IconButton from '../components/Buttons/IconButton';
-import ValuableForm from '../components/ValuableForm';
+import { Valuable } from '../types/Valuable';
+import { useValuableContext } from '../context/ValuableContext';
+import Input from '../components/Input';
 
 export default function AddItemScreen({
   navigation,
 }: RootTabScreenProps<'AddItemScreen'>) {
   const [modalVisible, setModalVisible] = useState(false);
   const [imageURI, setImageURI] = useState('');
+  const [name, setName] = useState('');
+  const [value, setValue] = useState('');
+  const [description, setDescription] = useState('');
+  const { valuables, setValuables } = useValuableContext();
 
   useEffect(() => {
     if (imageURI) {
@@ -24,11 +30,31 @@ export default function AddItemScreen({
     }
   }, [imageURI]);
 
+  const isDataValid = !!name && !!value;
+
+  const setValuablePrice = (value: string) => {
+    if (Number.isNaN(Number(value))) return;
+
+    setValue(value);
+  };
+
+  const onSubmit = () => {
+    const valuable: Valuable = {
+      id: Date.now(),
+      name,
+      purchasePrice: Number(value),
+      photo: { uri: imageURI },
+    };
+
+    setValuables([...valuables, valuable]);
+    navigation.goBack();
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.buttonsContainer}>
         <Button title="Cancel" onPress={() => navigation.goBack()} />
-        <Button title="Add" disabled onPress={() => undefined} />
+        <Button title="Add" disabled={!isDataValid} onPress={onSubmit} />
       </View>
       <AddPhotoButton onPress={() => setModalVisible(!modalVisible)}>
         {imageURI ? (
@@ -54,7 +80,30 @@ export default function AddItemScreen({
         onClose={() => setModalVisible(false)}
         setImageURI={setImageURI}
       />
-      <ValuableForm />
+      <View>
+        <Input
+          label="Name"
+          placeholder="Bracelet"
+          value={name}
+          onChangeText={(text: string) => setName(text)}
+        />
+        <Input
+          label="Value"
+          placeholder="700"
+          isNumeric
+          hasCurrency
+          value={value}
+          onChangeText={(value) => setValuablePrice(value)}
+        />
+        <Input
+          label="Description"
+          placeholder="Optional"
+          multiline
+          numberOfLines={20}
+          value={description}
+          onChangeText={(text: string) => setDescription(text)}
+        />
+      </View>
     </View>
   );
 }
