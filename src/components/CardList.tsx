@@ -21,12 +21,18 @@ const CardList = ({ data }: Props) => {
       horizontal={false}
       numColumns={2}
       columnWrapperStyle={styles.columnWrapper}
-    ></FlatList>
+      contentContainerStyle={styles.contentContainer}
+    />
   );
 };
 
 const styles = StyleSheet.create({
-  columnWrapper: { justifyContent: 'space-between' },
+  columnWrapper: {
+    justifyContent: 'space-between',
+  },
+  contentContainer: {
+    minHeight: '100%',
+  },
 });
 
 export default CardList;
