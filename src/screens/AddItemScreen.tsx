@@ -14,6 +14,7 @@ import { Valuable } from '../types/Valuable';
 import { useValuableContext } from '../context/ValuableContext';
 import Input from '../components/Input';
 import { MAX_VALUABLE_TOTAL } from '../constants/valuable';
+import { formatCurrency } from '../utils/formatter';
 
 export default function AddItemScreen({
   navigation,
@@ -102,6 +103,10 @@ export default function AddItemScreen({
           hasCurrency
           value={value}
           onChangeText={(value) => setValuablePrice(value)}
+          hasError={isAboveMaxValuableTotal}
+          errorMessage={`The total price should be less than ${formatCurrency(
+            MAX_VALUABLE_TOTAL
+          )}`}
         />
         <Input
           label="Description"

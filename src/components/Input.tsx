@@ -25,7 +25,6 @@ const Input = ({
   label,
   hasCurrency = false,
   multiline = false,
-  maxLength,
   numberOfLines,
   placeholder,
   isNumeric,
@@ -38,7 +37,7 @@ const Input = ({
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-      <View>
+      <View style={styles.container}>
         <Text style={styles.label}>{label}</Text>
         <View style={styles.inputContainer}>
           <TextInput
@@ -52,8 +51,8 @@ const Input = ({
               styles.input,
               hasCurrency && styles.inputWithIcon,
               multiline && styles.multiline,
-              isFocused && styles.inputFocused,
-              hasError && styles.error,
+              isFocused && [styles.inputFocused, styles.shadow],
+              hasError && [styles.error, styles.shadow],
             ]}
             numberOfLines={numberOfLines}
             keyboardType={isNumeric ? 'numeric' : 'default'}
@@ -64,17 +63,23 @@ const Input = ({
             <MaterialIcons
               name="euro"
               size={17}
-              color={colors.mainGrey}
+              color={colors.secondaryGrey}
               style={styles.icon}
             />
           ) : null}
         </View>
+        {hasError ? (
+          <Text style={styles.errorMessage}>{errorMessage}</Text>
+        ) : null}
       </View>
     </TouchableWithoutFeedback>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    marginTop: 20,
+  },
   inputContainer: {
     position: 'relative',
     flexDirection: 'row',
@@ -95,10 +100,10 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     borderRadius: 10,
     borderWidth: 2,
-    marginBottom: 20,
   },
   inputFocused: {
     borderColor: colors.mainBlue,
+    shadowColor: colors.mainBlue,
   },
   icon: {
     position: 'absolute',
@@ -114,10 +119,18 @@ const styles = StyleSheet.create({
   },
   error: {
     borderColor: colors.mainRed,
+    shadowColor: colors.mainRed,
   },
   errorMessage: {
     color: colors.mainRed,
+    fontFamily: fonts.regular,
     fontSize: 13,
+    marginTop: 10,
+  },
+  shadow: {
+    shadowOpacity: 0.5,
+    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 0 },
   },
 });
 
