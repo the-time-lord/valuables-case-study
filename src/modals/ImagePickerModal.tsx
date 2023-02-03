@@ -63,7 +63,7 @@ const dividerStyles = StyleSheet.create({
 
 const styles = StyleSheet.create({
   container: {
-    height: '25%',
+    height: '30%',
     marginTop: 'auto',
     width: '100%',
     backgroundColor: colors.background,

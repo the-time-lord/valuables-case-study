@@ -3,22 +3,38 @@ import { isAboveMaxValuableTotal } from '../utils/valuable';
 
 describe('Valuables', () => {
   it('cannot have total value above 40,000 euro', () => {
-    const valuable1Value = 5000;
-    const valuable2Value = 3000;
-    const valuable3Value = 6000;
-    const valuable4Value = 30000;
-
-    const totalOldValue = valuable1Value + valuable2Value + valuable3Value;
-
-    const totalCurrentValue =
-      valuable1Value + valuable2Value + valuable3Value + valuable4Value;
+    const totalCurrentValue = 10700;
+    const newValue = 30000;
 
     const isAboveMaxTotal = isAboveMaxValuableTotal(
-      totalOldValue,
-      valuable4Value.toString()
+      totalCurrentValue,
+      newValue
     );
 
-    expect(totalCurrentValue).toBeGreaterThan(MAX_VALUABLE_TOTAL);
     expect(isAboveMaxTotal).toBe(true);
+  });
+
+  it('accepts total value below 40,000 euro', () => {
+    const totalCurrentValue = 10700;
+    const newValue = 10000;
+
+    const isAboveMaxTotal = isAboveMaxValuableTotal(
+      totalCurrentValue,
+      newValue
+    );
+
+    expect(isAboveMaxTotal).toBe(false);
+  });
+
+  it('accepts total value of 40,000 euro', () => {
+    const totalCurrentValue = 30000;
+    const newValue = 10000;
+
+    const isAboveMaxTotal = isAboveMaxValuableTotal(
+      totalCurrentValue,
+      newValue
+    );
+
+    expect(isAboveMaxTotal).toBe(false);
   });
 });

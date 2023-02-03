@@ -8,7 +8,7 @@ import { RootTabScreenProps } from '../navigation/types';
 import { colors } from '../theme/colors';
 import { Ionicons } from '@expo/vector-icons';
 
-import { fonts } from '../theme/fonts';
+import { fonts, fontSizes } from '../theme/fonts';
 import IconButton from '../components/Buttons/IconButton';
 import { Valuable } from '../types/Valuable';
 import { useValuableContext } from '../context/ValuableContext';
@@ -16,6 +16,7 @@ import Input from '../components/Input';
 import { MAX_VALUABLE_TOTAL } from '../constants/valuable';
 import { formatCurrency } from '../utils/formatter';
 import { isAboveMaxValuableTotal } from '../utils/valuable';
+import Wrapper from '../components/Wrappers/Wrapper';
 
 export default function AddItemScreen({
   navigation,
@@ -57,12 +58,15 @@ export default function AddItemScreen({
     0
   );
 
-  const isAboveMaxTotal = isAboveMaxValuableTotal(valuablePriceTotal, value);
+  const isAboveMaxTotal = isAboveMaxValuableTotal(
+    valuablePriceTotal,
+    Number(value)
+  );
 
   const isDataValid = !!name && !!value && !isAboveMaxTotal;
 
   return (
-    <View style={styles.container}>
+    <Wrapper>
       <View style={styles.buttonsContainer}>
         <Button title="Cancel" onPress={() => navigation.goBack()} />
         <Button title="Add" disabled={!isDataValid} onPress={onSubmit} />
@@ -119,17 +123,11 @@ export default function AddItemScreen({
           onChangeText={(text: string) => setDescription(text)}
         />
       </View>
-    </View>
+    </Wrapper>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingHorizontal: 20,
-    backgroundColor: colors.background,
-    paddingTop: 10,
-  },
   buttonsContainer: {
     width: '100%',
     marginTop: 16,
@@ -152,11 +150,11 @@ const styles = StyleSheet.create({
   },
   photoText: {
     fontFamily: fonts.bold,
-    fontSize: 17,
+    fontSize: fontSizes.medium,
   },
   buttonText: {
     fontFamily: fonts.bold,
-    fontSize: 17,
+    fontSize: fontSizes.medium,
   },
   image: {
     height: 135,

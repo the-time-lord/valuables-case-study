@@ -1,6 +1,6 @@
 import { TouchableOpacity, View, StyleSheet, Text } from 'react-native';
 import { colors } from '../../theme/colors';
-import { fonts } from '../../theme/fonts';
+import { fonts, fontSizes } from '../../theme/fonts';
 
 interface Props {
   onPress: () => void;
@@ -23,6 +23,6 @@ const styles = StyleSheet.create({
   text: {
     color: colors.mainBlue,
     fontFamily: fonts.regular,
-    fontSize: 19,
+    fontSize: fontSizes.mediumLarge,
   },
 });
