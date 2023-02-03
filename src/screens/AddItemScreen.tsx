@@ -15,6 +15,7 @@ import { useValuableContext } from '../context/ValuableContext';
 import Input from '../components/Input';
 import { MAX_VALUABLE_TOTAL } from '../constants/valuable';
 import { formatCurrency } from '../utils/formatter';
+import { isAboveMaxValuableTotal } from '../utils/valuable';
 
 export default function AddItemScreen({
   navigation,
@@ -24,6 +25,7 @@ export default function AddItemScreen({
   const [name, setName] = useState('');
   const [value, setValue] = useState('');
   const [description, setDescription] = useState('');
+
   const { valuables, setValuables } = useValuableContext();
 
   useEffect(() => {
@@ -38,13 +40,6 @@ export default function AddItemScreen({
     setValue(value);
   };
 
-  const valuablePriceTotal = valuables.reduce(
-    (acc, { purchasePrice }) => acc + purchasePrice,
-    0
-  );
-  const isAboveMaxValuableTotal =
-    valuablePriceTotal + Number(value) > MAX_VALUABLE_TOTAL;
-
   const onSubmit = () => {
     const valuable: Valuable = {
       id: Date.now(),
@@ -57,7 +52,14 @@ export default function AddItemScreen({
     navigation.goBack();
   };
 
-  const isDataValid = !!name && !!value && !isAboveMaxValuableTotal;
+  const valuablePriceTotal = valuables.reduce(
+    (acc, { purchasePrice }) => acc + purchasePrice,
+    0
+  );
+
+  const isAboveMaxTotal = isAboveMaxValuableTotal(valuablePriceTotal, value);
+
+  const isDataValid = !!name && !!value && !isAboveMaxTotal;
 
   return (
     <View style={styles.container}>
@@ -103,7 +105,7 @@ export default function AddItemScreen({
           hasCurrency
           value={value}
           onChangeText={(value) => setValuablePrice(value)}
-          hasError={isAboveMaxValuableTotal}
+          hasError={isAboveMaxTotal}
           errorMessage={`The total price should be less than ${formatCurrency(
             MAX_VALUABLE_TOTAL
           )}`}
