@@ -1,4 +1,3 @@
-import { ReactElement } from 'react';
 import {
   StyleSheet,
   TouchableOpacity,
@@ -8,10 +7,10 @@ import {
 
 import { colors } from '../../theme/colors';
 
-const AddPhotoButton = (props: TouchableOpacityProps & ReactElement) => {
+const AddPhotoButton = (props: TouchableOpacityProps) => {
   return (
-    <TouchableOpacity onPress={props.onPress}>
-      <View style={styles.container}>{props.children}</View>
+    <TouchableOpacity onPress={props.onPress} style={styles.container}>
+      <View style={styles.content}>{props.children}</View>
     </TouchableOpacity>
   );
 };
@@ -28,6 +27,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignSelf: 'center',
     marginVertical: 15,
+  },
+  content: {
+    alignItems: 'center',
   },
 });
 
