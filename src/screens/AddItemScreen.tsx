@@ -58,7 +58,10 @@ export default function AddItemScreen({
     0
   );
 
-  const isAboveMaxTotal = isAboveMaxValuableTotal(valuablePriceTotal, value);
+  const isAboveMaxTotal = isAboveMaxValuableTotal(
+    valuablePriceTotal,
+    Number(value)
+  );
 
   const isDataValid = !!name && !!value && !isAboveMaxTotal;
 
