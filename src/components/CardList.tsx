@@ -1,4 +1,4 @@
-import { FlatList } from 'react-native';
+import { FlatList, StyleSheet } from 'react-native';
 import { Valuable } from '../types/Valuable';
 import ValuableCard from './ValuableCard';
 
@@ -20,8 +20,13 @@ const CardList = ({ data }: Props) => {
       )}
       horizontal={false}
       numColumns={2}
+      columnWrapperStyle={styles.columnWrapper}
     ></FlatList>
   );
 };
+
+const styles = StyleSheet.create({
+  columnWrapper: { justifyContent: 'space-between' },
+});
 
 export default CardList;
