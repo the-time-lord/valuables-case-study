@@ -1,5 +1,6 @@
 import { Pressable, PressableProps, Text } from 'react-native';
 import { colors } from '../../theme/colors';
+import { fontSizes } from '../../theme/fonts';
 
 export default function Button({
   title,
@@ -16,7 +17,7 @@ export default function Button({
     >
       <Text
         style={{
-          fontSize: 17,
+          fontSize: fontSizes.medium,
           color: disabled ? colors.mainGrey : colors.mainBlue,
         }}
       >

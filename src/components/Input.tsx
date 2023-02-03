@@ -6,8 +6,9 @@ import {
   TextInputProps,
   TouchableWithoutFeedback,
   Keyboard,
+  Platform,
 } from 'react-native';
-import { fonts } from '../theme/fonts';
+import { fonts, fontSizes } from '../theme/fonts';
 import { colors } from '../theme/colors';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useState } from 'react';
@@ -50,7 +51,7 @@ const Input = ({
             style={[
               styles.input,
               hasCurrency && styles.inputWithIcon,
-              multiline && styles.multiline,
+              multiline && Platform.OS === 'ios' && styles.multiline,
               isFocused && [styles.inputFocused, styles.shadow],
               hasError && [styles.error, styles.shadow],
             ]}
@@ -88,12 +89,12 @@ const styles = StyleSheet.create({
   },
   label: {
     fontFamily: fonts.bold,
-    fontSize: 13,
+    fontSize: fontSizes.small,
     marginVertical: 5,
   },
   input: {
     flex: 1,
-    fontSize: 17,
+    fontSize: fontSizes.medium,
     borderColor: colors.lightGrey,
     backgroundColor: colors.white,
     paddingHorizontal: 15,

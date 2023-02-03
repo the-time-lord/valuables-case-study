@@ -5,20 +5,24 @@ import {
   ImageSourcePropType,
   StyleSheet,
 } from 'react-native';
-import { fonts } from '../theme/fonts';
+import { fonts, fontSizes } from '../theme/fonts';
 import { colors } from '../theme/colors';
 import { formatCurrency } from '../utils/formatter';
 
 interface Props {
   title: string;
   value: number;
-  imageSource: ImageSourcePropType | undefined;
+  imageSource?: ImageSourcePropType | undefined;
 }
 
 const ValuableCard = ({ title, value, imageSource }: Props) => {
   return (
     <View style={[styles.container, styles.shadow]}>
-      <Image source={imageSource} style={styles.image} />
+      {imageSource ? (
+        <Image source={imageSource} style={styles.image} />
+      ) : (
+        <View style={[styles.image, styles.fallbackImage]}></View>
+      )}
       <View style={styles.textContainer}>
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.value}>{formatCurrency(value)}</Text>
@@ -41,13 +45,16 @@ const styles = StyleSheet.create({
     flex: 0.6,
     height: 158,
   },
+  fallbackImage: {
+    backgroundColor: colors.secondaryGrey,
+  },
   title: {
     fontFamily: fonts.bold,
-    fontSize: 19,
+    fontSize: fontSizes.mediumLarge,
   },
   value: {
     fontFamily: fonts.regular,
-    fontSize: 15,
+    fontSize: fontSizes.smallMedium,
     color: colors.secondaryGrey,
   },
   textContainer: {

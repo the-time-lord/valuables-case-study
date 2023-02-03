@@ -8,7 +8,7 @@ import { RootTabScreenProps } from '../navigation/types';
 import { colors } from '../theme/colors';
 import { Ionicons } from '@expo/vector-icons';
 
-import { fonts } from '../theme/fonts';
+import { fonts, fontSizes } from '../theme/fonts';
 import IconButton from '../components/Buttons/IconButton';
 import { Valuable } from '../types/Valuable';
 import { useValuableContext } from '../context/ValuableContext';
@@ -147,11 +147,11 @@ const styles = StyleSheet.create({
   },
   photoText: {
     fontFamily: fonts.bold,
-    fontSize: 17,
+    fontSize: fontSizes.medium,
   },
   buttonText: {
     fontFamily: fonts.bold,
-    fontSize: 17,
+    fontSize: fontSizes.medium,
   },
   image: {
     height: 135,
