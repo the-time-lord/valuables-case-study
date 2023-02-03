@@ -42,8 +42,8 @@ const styles = StyleSheet.create({
   image: {
     borderTopLeftRadius: 14,
     borderTopRightRadius: 14,
-    flex: 0.6,
-    height: 158,
+    width: '100%',
+    aspectRatio: 1,
   },
   fallbackImage: {
     backgroundColor: colors.secondaryGrey,

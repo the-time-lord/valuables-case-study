@@ -66,6 +66,7 @@ const Input = ({
               size={17}
               color={colors.secondaryGrey}
               style={styles.icon}
+              pointerEvents="none"
             />
           ) : null}
         </View>

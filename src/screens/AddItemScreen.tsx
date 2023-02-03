@@ -46,7 +46,7 @@ export default function AddItemScreen({
       id: Date.now(),
       name,
       purchasePrice: Number(value),
-      photo: { uri: imageURI },
+      photo: imageURI ? { uri: imageURI } : undefined,
     };
 
     setValuables([...valuables, valuable]);
